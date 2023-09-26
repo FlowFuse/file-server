@@ -119,6 +119,10 @@ module.exports = function (app) {
         },
         async delete (teamId, projectId, path) {
             const resolvedPath = resolvePath(teamId, projectId, path)
+            await s3.send(new HeadObjectCommand({
+                Bucket: bucketID,
+                Key: resolvedPath
+            }))
             await s3.send(new DeleteObjectCommand({
                 Bucket: bucketID,
                 Key: resolvedPath

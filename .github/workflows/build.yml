@@ -24,10 +24,22 @@ jobs:
         ports:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
+      minio:
+        image: minio/minio:edge-cicd
+        ports:
+          - 9000:9000
+        options: >-
+          --health-cmd "curl -s http://localhost:9000/minio/health/live"
     strategy:
       matrix:
         node-version: [16.x]
     steps:
+    # get minio admin client
+    - name: Fetch mc client
+      run: curl -o ./mc -# https://dl.min.io/client/mc/release/linux-amd64/mc && chmod +x ./mc
+    # create S3 bucket called test
+    - name: Create the dev bucket
+      run: ./mc alias set minio http://localhost:9000 minioadmin minioadmin && ./mc mb minio/test
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3

@@ -8,7 +8,7 @@ describe('File API', function () {
         driverOptions: {},
         appPort: 4111,
         authServerPort: 4112,
-        fileQuota: 1000 // set quota to 1K and test we don't exceed it
+        fileQuota: 2000 // set quota to 2K and test we don't exceed it
     })
     fileApiTests({
         driverType: 'localfs',
@@ -17,18 +17,26 @@ describe('File API', function () {
         },
         appPort: 4121,
         authServerPort: 4122,
-        fileQuota: 1000 // set quota to 1K and test we don't exceed it
+        fileQuota: 2000 // set quota to 2K and test we don't exceed it
     })
-    // if (process.env.TEST_S3 !== 'false') {
-    //     fileApiTests({
-    //         driverType: 's3',
-    //         driverOptions: {
-    //         },
-    //         appPort: 4131,
-    //         authServerPort: 4132,
-    //         fileQuota: 1000 // set quota to 1K and test we don't exceed it
-    //     })
-    // }
+    if (process.env.TEST_S3 !== 'false') {
+        fileApiTests({
+            driverType: 's3',
+            driverOptions: {
+                bucket: 'test',
+                credentials: {
+                    accessKeyId: 'minioadmin',
+                    secretAccessKey: 'minioadmin'
+                },
+                region: 'eu-west-1',
+                forcePathStyle: true,
+                endpoint: 'http://localhost:9000'
+            },
+            appPort: 4131,
+            authServerPort: 4132,
+            fileQuota: 2000 // set quota to 2K and test we don't exceed it
+        })
+    }
 })
 
 function fileApiTests ({ testName, driverType, driverOptions, appPort, authServerPort, fileQuota } = {}) {

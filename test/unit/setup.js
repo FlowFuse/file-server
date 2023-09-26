@@ -58,7 +58,7 @@ async function setupApp (config = {}) {
         base_url: config.base_url || 'http://localhost:3002',
         driver: {
             type: config.fileDriverType || 'memory',
-            quota: config.contextQuota || 2000, // default context quota is 2KB
+            quota: config.fileQuota || 2000, // default context quota is 2KB
             options: config.fileDriverOptions || {
                 root: 'var/root'
             }

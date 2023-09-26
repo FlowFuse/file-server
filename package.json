@@ -9,7 +9,9 @@
         "lint": "eslint -c .eslintrc \"forge/**/*.js\" \"test/**/*.js\" index.js",
         "lint:fix": "eslint -c .eslintrc \"forge/**/*.js\" \"test/**/*.js\" index.js --fix",
         "test": "mocha test/unit/**/*_spec.js --timeout 5000",
-        "test:nopg": "cross-env TEST_POSTGRES=false mocha test/unit/**/*_spec.js --timeout 5000"
+        "test:nopg": "cross-env TEST_POSTGRES=false mocha test/unit/**/*_spec.js --timeout 5000",
+        "test:nos3": "cross-env TEST_S3=false mocha test/unit/**/*_spec.js --timeout 5000",
+        "test:nopgs3": "cross-env TEST_POSTGRES=false TEST_S3=false mocha test/unit/**/*_spec.js --timeout 5000"
     },
     "bin": {
         "ff-file-storage": "./index.js"
