@@ -1,3 +1,7 @@
+#### 2.14.1: Release
+
+ - Bump serialize-javascript and mocha (#144) @app/dependabot
+
 #### 2.14.0: Release
 
 
