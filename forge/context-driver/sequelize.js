@@ -150,7 +150,7 @@ module.exports = {
                     }
                     // only calculate the current size if we are going to need it
                     if (changeSize >= 0) {
-                        const currentSize = await this.quota(instanceId)
+                        const currentSize = Number.parseInt(await this.quota(instanceId))
                         if (currentSize + changeSize > quotaLimit) {
                             app.log.warn(`context quota check fail: ${instanceId}/${scope} current=${currentSize} delta=${changeSize} limit=${quotaLimit} requested=${currentSize + changeSize}`)
                             const err = new Error('Over Quota')
