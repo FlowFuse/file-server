@@ -81,7 +81,7 @@ module.exports = {
         if (process.env.NODE_ENV === 'development') {
             app.log.info('Development mode')
         }
-        app.log.info(`FlowFuse File Storage v${config.ffVersion}`)
+        app.log.info(`FlowFuse File Storage v${config.version}`)
         app.log.info(`FlowFuse File Storage running with NodeJS ${process.version}`)
         app.log.info(`FlowFuse File Storage HOME Directory: ${process.env.FLOWFORGE_HOME}`)
         if (!opts.config) {
