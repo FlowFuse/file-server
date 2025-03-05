@@ -150,7 +150,7 @@ module.exports = {
                     }
                     // only calculate the current size if we are going to need it
                     if (changeSize >= 0) {
-                        const currentSize = await this.quota(instanceId)
+                        const currentSize = Number.parseInt(await this.quota(instanceId))
                         console.log('currentSize', currentSize, typeof currentSize)
                         console.log(`${currentSize} ${changeSize} ${currentSize + changeSize}`, (currentSize + changeSize))
                         if (currentSize + changeSize > quotaLimit) {
