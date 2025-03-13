@@ -1,3 +1,8 @@
+#### 2.15.0: Release
+
+ - PostgreSQL returning string for used quota size (#147) @hardillb
+ - Fix starup log to print file-server version (#146) @hardillb
+
 #### 2.14.1: Release
 
  - Bump serialize-javascript and mocha (#144) @app/dependabot
