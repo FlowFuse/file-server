@@ -1,3 +1,8 @@
+#### 2.16.0: Release
+
+ - Bump @babel/runtime from 7.22.15 to 7.26.10 (#149) @app/dependabot
+ - chore: Pin external actions to commit hash (#151) @ppawlowski
+
 #### 2.15.0: Release
 
  - PostgreSQL returning string for used quota size (#147) @hardillb
