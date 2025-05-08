@@ -1,3 +1,7 @@
+#### 2.17.0: Release
+
+ - Bump actions/setup-node from 4.3.0 to 4.4.0 (#153)
+
 #### 2.16.0: Release
 
  - Bump @babel/runtime from 7.22.15 to 7.26.10 (#149) @app/dependabot
