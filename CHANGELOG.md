@@ -1,3 +1,9 @@
+#### 2.21.0: Release
+
+ - Bump actions/checkout from 4.2.2 to 5.0.0 (#160)
+ - Bump flowfuse/github-actions-workflows from 0.40.0 to 0.42.0 (#161)
+ - Bump brace-expansion from 1.1.11 to 1.1.12 (#162) @app/dependabot
+
 #### 2.20.0: Release
 
 
