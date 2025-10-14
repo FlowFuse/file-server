@@ -1,3 +1,7 @@
+#### 2.22.1: Release
+
+ - Bump JS-DevTools/npm-publish from 4.0.1 to 4.1.1 (#170)
+
 #### 2.22.0: Release
 
  - Bump JS-DevTools/npm-publish from 3.1.1 to 4.0.1 (#168)
