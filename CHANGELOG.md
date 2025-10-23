@@ -1,5 +1,10 @@
 #### 2.23.0: Release
 
+ - Release 2.23.0 (#173) @cstns
+ - Bump actions/setup-node from 5.0.0 to 6.0.0 (#172) @app/dependabot
+
+#### 2.23.0: Release
+
  - Bump actions/setup-node from 5.0.0 to 6.0.0 (#172) @app/dependabot
 
 #### 2.22.1: Release
