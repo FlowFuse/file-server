@@ -1,3 +1,11 @@
+#### 2.24.0: Release
+
+ - Bump actions/checkout from 5.0.0 to 5.0.1 (#181)
+ - Bump flowfuse/github-actions-workflows from 0.42.0 to 0.43.0 (#176)
+ - Bump js-yaml from 4.1.0 to 4.1.1 (#180) @app/dependabot
+ - Passes context.options.ssl to postgres driver (#179) @hardillb
+ - Bump validator from 13.9.0 to 13.15.20 (#177) @app/dependabot
+
 #### 2.23.1: Release
 
 
