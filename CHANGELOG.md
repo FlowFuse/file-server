@@ -1,3 +1,7 @@
+#### 2.24.2: Release
+
+ - Bump actions/checkout from 5.0.1 to 6.0.0 (#184) @app/dependabot
+
 #### 2.24.1: Release
 
 
