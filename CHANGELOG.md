@@ -1,3 +1,9 @@
+#### 2.24.5: Release
+
+ - Bump actions/setup-node from 6.0.0 to 6.1.0 (#190) @app/dependabot
+ - Bump actions/checkout from 6.0.0 to 6.0.1 (#189) @app/dependabot
+ - Bump validator from 13.15.20 to 13.15.23 (#188) @app/dependabot
+
 #### 2.24.4: Release
 
 
