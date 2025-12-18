@@ -1,3 +1,8 @@
+#### 2.25.0: Release
+
+ - Bump flowfuse/github-actions-workflows/.github/workflows/publish_node_package.yml (#193)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/build_node_package.yml from 0.43.0 to 0.44.0 (#192) @app/dependabot
+
 #### 2.24.5: Release
 
  - Bump actions/setup-node from 6.0.0 to 6.1.0 (#190) @app/dependabot
