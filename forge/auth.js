@@ -4,7 +4,7 @@ const got = require('got')
 const authCache = {}
 const ttl = 90 * 1000
 
-module.exports = fp(async function (app, opts, done) {
+module.exports = fp(async function (app, opts) {
     const client = got.extend({
         prefixUrl: `${app.config.base_url}/account/check/project`,
         headers: {
@@ -102,5 +102,4 @@ module.exports = fp(async function (app, opts, done) {
     }
 
     app.decorate('checkAuth', checkAuth)
-    done()
 })
