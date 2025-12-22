@@ -1,7 +1,7 @@
 const fp = require('fastify-plugin')
 const getDriver = require('./drivers/vfs.js')
 
-module.exports = fp(async function (app, opts, done) {
+module.exports = fp(async function (app, opts) {
     const Driver = require('./drivers/' + app.config.driver.type)
     try {
         app.decorate('_driver', new Driver(app))
@@ -15,5 +15,4 @@ module.exports = fp(async function (app, opts, done) {
     } catch (err) {
         console.log(err)
     }
-    done()
 })

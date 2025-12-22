@@ -74,7 +74,7 @@ module.exports = {
 
         return config
     },
-    attach: fp(async function (app, opts, next) {
+    attach: fp(async function (app, opts) {
         Object.freeze(config)
         app.decorate('config', config)
 
@@ -87,7 +87,5 @@ module.exports = {
         if (!opts.config) {
             app.log.info(`Config File: ${config.configFile}`)
         }
-
-        next()
     })
 }

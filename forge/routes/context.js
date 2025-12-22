@@ -9,7 +9,7 @@
 /** @typedef {import('fastify').FastifyReply} FastifyReply */
 /** @typedef {import('fastify').FastifyRequest} FastifyRequest */
 
-module.exports = async function (app, opts, done) {
+module.exports = async function (app, opts) {
     const driver = require(`../context-driver/${app.config.context.type}`)
 
     await driver.init(app)
@@ -181,6 +181,4 @@ module.exports = async function (app, opts, done) {
         await driver.clean(request.params.projectId, request.body)
         reply.send()
     })
-
-    done()
 }
