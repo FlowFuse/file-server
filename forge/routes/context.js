@@ -10,7 +10,12 @@
 /** @typedef {import('fastify').FastifyRequest} FastifyRequest */
 
 module.exports = async function (app, opts) {
-    const driver = require(`../context-driver/${app.config.context.type}`)
+    let driver
+    if (app.config.context.type === 'db') {
+        driver = require(`../context-driver/sequelize`)
+    } else {
+        driver = require(`../context-driver/${app.config.context.type}`)
+    }
 
     await driver.init(app)
 
