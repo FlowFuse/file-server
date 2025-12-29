@@ -32,12 +32,12 @@
     "homepage": "https://github.com/FlowFuse/file-server#readme",
     "dependencies": {
         "@aws-sdk/client-s3": "^3.388.0",
-        "@fastify/helmet": "^11.0.0",
+        "@fastify/helmet": "^13.0.2",
         "@node-red/util": "^3.1.0",
-        "fastify": "^4.21.0",
-        "fastify-metrics": "^10.3.0",
-        "fastify-plugin": "^4.5.1",
-        "fastify-healthcheck": "^4.4.0",
+        "fastify": "^5.6.2",
+        "fastify-healthcheck": "^5.1.0",
+        "fastify-metrics": "^12.1.0",
+        "fastify-plugin": "^5.1.0",
         "got": "^11.8.6",
         "pg": "^8.11.2",
         "pino": "^8.15.1",
@@ -59,6 +59,6 @@
         "should": "^13.2.3"
     },
     "engines": {
-        "node": ">=16.x"
+        "node": ">=20.x"
     }
 }

@@ -9,7 +9,7 @@
 /** @typedef {import('fastify').FastifyReply} FastifyReply */
 /** @typedef {import('fastify').FastifyRequest} FastifyRequest */
 
-module.exports = async function (app, opts, done) {
+module.exports = async function (app, opts) {
     app.addContentTypeParser('application/octet-stream', { parseAs: 'buffer' }, function (request, payload, done) {
         done(null, payload)
     })
@@ -125,6 +125,4 @@ module.exports = async function (app, opts, done) {
             reply.code(err.statusCode || 400).send(err)
         }
     })
-
-    done()
 }
