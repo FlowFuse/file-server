@@ -18,17 +18,17 @@ function authServer (config = {}) {
             const projectId = urlParts.pop()
             const route = urlParts.join('/')
             switch (route) {
-            case '/account/check/project':
-                authToken = authConfig.find(auth => auth.projectId === projectId)
-                if (req.headers.authorization === ('Bearer ' + authToken.token)) {
-                    res.writeHead(200)
-                    res.end('{ "quota": { "file": 1000, "context": 1000 } }')
-                    return
-                }
-                throw new Error('Unknown request')
-            default:
-                res.writeHead(404)
-                res.end(JSON.stringify({ error: 'Resource not found' }))
+                case '/account/check/project':
+                    authToken = authConfig.find(auth => auth.projectId === projectId)
+                    if (req.headers.authorization === ('Bearer ' + authToken.token)) {
+                        res.writeHead(200)
+                        res.end('{ "quota": { "file": 1000, "context": 1000 } }')
+                        return
+                    }
+                    throw new Error('Unknown request')
+                default:
+                    res.writeHead(404)
+                    res.end(JSON.stringify({ error: 'Resource not found' }))
             }
         } catch (error) {
             res.writeHead(401)
@@ -87,7 +87,7 @@ async function setupApp (config = {}) {
             await client.query(`CREATE DATABASE "${options.config.context.options.database}"`)
             await client.end()
         } catch (err) {
-            console.log(err.toString())
+            console.error(err.toString())
             process.exit(1)
         }
     }

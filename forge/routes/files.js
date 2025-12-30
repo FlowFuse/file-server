@@ -66,7 +66,7 @@ module.exports = async function (app, opts) {
             }
             reply.code(200).send()
         } catch (err) {
-            console.log(err)
+            console.error(err)
             reply.code(400).send(err)
         }
     })
