@@ -13,6 +13,6 @@ module.exports = fp(async function (app, opts) {
             done()
         })
     } catch (err) {
-        console.log(err)
+        console.error(err)
     }
 })

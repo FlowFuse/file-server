@@ -1,4 +1,4 @@
-const should = require('should') // eslint-disable-line
+const should = require('should')
 const setup = require('./setup.js')
 const path = require('path')
 const PACKAGE_ROOT = '../../../'
