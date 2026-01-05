@@ -12,7 +12,7 @@
 module.exports = async function (app, opts) {
     let driver
     if (app.config.context.type === 'db') {
-        driver = require(`../context-driver/sequelize`)
+        driver = require('../context-driver/sequelize')
     } else {
         driver = require(`../context-driver/${app.config.context.type}`)
     }
