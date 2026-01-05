@@ -165,7 +165,7 @@ options.
 
 ### Context Storage
 
-#### Sequelize
+#### Database
 
 This driver can use either PostgreSQL or SQLite to hold context values.
 
@@ -173,7 +173,7 @@ To use with PostgreSQL configure as follows:
 
 ```yaml
 context:
-  type: sequelize
+  type: db
   options:
     type: postgres
     host: 127.0.0.1
@@ -188,7 +188,7 @@ To use with SQLite configure as follows:
 
 ```yaml
 context:
-  type: sequelize
+  type: db
   options:
     type: sqlite
     storage: ff-context.db
