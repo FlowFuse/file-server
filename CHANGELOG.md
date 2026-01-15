@@ -1,3 +1,13 @@
+#### 2.26.0: Release
+
+ - Bump JS-DevTools/npm-publish from 4.1.1 to 4.1.3 (#203)
+ - fix eqeqeq and quotes rules (#201) @hardillb
+ - Rename context driver to `db` from `sequelize` (#198) @hardillb
+ - Convert to eslint v9 (#200) @hardillb
+ - Bump to Fastify v5 (#195) @hardillb
+ - Bump flowfuse/github-actions-workflows/.github/workflows/build_node_package.yml from 0.44.0 to 0.45.0 (#197) @app/dependabot
+ - Bump flowfuse/github-actions-workflows/.github/workflows/publish_node_package.yml from 0.44.0 to 0.45.0 (#196) @app/dependabot
+
 #### 2.25.0: Release
 
  - Bump flowfuse/github-actions-workflows/.github/workflows/publish_node_package.yml (#193)
