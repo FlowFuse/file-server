@@ -1,3 +1,12 @@
+#### 2.26.1: Release
+
+ - Bump JS-DevTools/npm-publish from 4.1.3 to 4.1.4 (#206)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/publish_node_package.yml (#207)
+ - Bump actions/setup-node from 6.1.0 to 6.2.0 (#208)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/build_node_package.yml (#209)
+ - Bump lodash from 4.17.21 to 4.17.23 (#210) @app/dependabot
+ - ci: Enable SAST (#204) @ppawlowski
+
 #### 2.26.0: Release
 
  - Bump JS-DevTools/npm-publish from 4.1.1 to 4.1.3 (#203)
