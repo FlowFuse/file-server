@@ -71,7 +71,11 @@ module.exports = {
         } else if (dbOptions.dialect === 'postgres') {
             dbOptions.host = app.config.context.options.host || 'postgres'
             dbOptions.port = app.config.context.options.port || 5432
-            dbOptions.ssl = app.config.context.options.ssl
+            if (app.config.context.options.ssl) {
+                dbOptions.dialectOptions = {
+                    ssl: true
+                }
+            }
             dbOptions.username = app.config.context.options.username
             dbOptions.password = app.config.context.options.password
             dbOptions.database = app.config.context.options.database || 'ff-context'
