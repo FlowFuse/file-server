@@ -1,3 +1,12 @@
+#### 2.26.2: Release
+
+ - Bump flowfuse/github-actions-workflows/.github/workflows/build_node_package.yml (#211)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/publish_node_package.yml (#212)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/sast_scan.yaml (#214)
+ - Bump fastify from 5.6.2 to 5.7.4 (#219) @app/dependabot
+ - Fix context SSL configuration (#217) @hardillb
+ - Bump actions/checkout from 6.0.1 to 6.0.2 (#213) @app/dependabot
+
 #### 2.26.1: Release
 
  - Bump JS-DevTools/npm-publish from 4.1.3 to 4.1.4 (#206)
