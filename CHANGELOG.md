@@ -1,3 +1,10 @@
+#### 2.27.0: Release
+
+ - Bump JS-DevTools/npm-publish from 4.1.4 to 4.1.5 (#218)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/publish_node_package.yml (#222)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/build_node_package.yml (#223)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/sast_scan.yaml (#224)
+
 #### 2.26.2: Release
 
  - Bump flowfuse/github-actions-workflows/.github/workflows/build_node_package.yml (#211)
