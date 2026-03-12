@@ -1,3 +1,14 @@
+#### 2.28.0: Release
+
+ - Bump actions/setup-node from 6.2.0 to 6.3.0 (#240)
+ - Bump benc-uk/workflow-dispatch from 1.2.4 to 1.3.1 (#231)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/publish_node_package.yml (#235)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/sast_scan.yaml (#236)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/build_node_package.yml (#237)
+ - Bump fastify from 5.7.4 to 5.8.1 (#238) @app/dependabot
+ - Bump sequelize from 6.33.0 to 6.37.8 (#241) @app/dependabot
+ - Bump fast-xml-parser and @aws-sdk/xml-builder (#239) @app/dependabot
+
 #### 2.27.1: Release
 
  - Bump flowfuse/github-actions-workflows/.github/workflows/build_node_package.yml (#226)
