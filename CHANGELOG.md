@@ -1,3 +1,11 @@
+#### 2.29.0: Release
+
+ - Bump tar and sqlite3 (#258) @app/dependabot
+ - Bump brace-expansion (#254) @app/dependabot
+ - Bump yaml from 2.3.1 to 2.8.3 (#253) @app/dependabot
+ - Bump picomatch (#252) @app/dependabot
+ - Bump fastify from 5.8.1 to 5.8.4 (#251) @app/dependabot
+
 #### 2.28.1: Release
 
  - Bump actions/create-github-app-token from 2.2.1 to 3.0.0 (#245)
