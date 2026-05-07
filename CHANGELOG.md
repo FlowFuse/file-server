@@ -1,3 +1,16 @@
+#### 2.30.0: Release
+
+ - Bump actions/setup-node from 6.3.0 to 6.4.0 (#273)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/publish_node_package.yml (#272)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/build_node_package.yml (#271)
+ - Bump flowfuse/github-actions-workflows/.github/workflows/sast_scan.yaml (#270)
+ - Bump actions/create-github-app-token from 3.0.0 to 3.1.1 (#268)
+ - Bump ip-address from 10.1.0 to 10.2.0 (#276) @app/dependabot
+ - ci: Use new project-automation workflow (#275) @ppawlowski
+ - Bump fast-xml-parser and @aws-sdk/xml-builder (#274) @app/dependabot
+ - Bump fastify from 5.8.4 to 5.8.5 (#269) @app/dependabot
+ - Bump lodash from 4.17.23 to 4.18.1 (#263) @app/dependabot
+
 #### 2.29.1: Release
 
 
