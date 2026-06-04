@@ -1,3 +1,13 @@
+#### 2.31.0: Release
+
+ - Bump actions/create-github-app-token from 3.1.1 to 3.2.0 (#282)
+ - Bump benc-uk/workflow-dispatch from 1.3.1 to 1.3.2 (#285)
+ - Switch internal reusable workflows to new tagging approach (#284)
+ - Bump mocha version (#283) @hardillb
+ - ci: enable dependabot cooldown (#281) @ppawlowski
+ - Bump fast-uri from 3.1.0 to 3.1.2 (#280) @app/dependabot
+ - Bump fast-xml-builder from 1.1.5 to 1.2.0 (#279) @app/dependabot
+
 #### 2.30.1: Release
 
 
