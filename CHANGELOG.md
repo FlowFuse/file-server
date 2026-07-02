@@ -1,3 +1,11 @@
+#### 2.32.0: Release
+
+ - Bump js-yaml from 4.1.1 to 4.3.0 (#295)
+ - Bump tar from 7.5.13 to 7.5.16 (#292)
+ - Bump actions/checkout from 6.0.3 to 7.0.0 (#294)
+ - Bump actions/checkout from 6.0.2 to 6.0.3 (#286)
+ - ci: set dependabot pull request limit to 30 (#293)
+
 #### 2.31.3: Release
 
 
