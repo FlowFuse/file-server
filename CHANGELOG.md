@@ -1,3 +1,7 @@
+#### 2.32.1: Release
+
+ - ci: Add slack notification to the release pipeline (#297)
+
 #### 2.32.0: Release
 
  - Bump js-yaml from 4.1.1 to 4.3.0 (#295)
