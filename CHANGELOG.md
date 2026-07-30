@@ -1,3 +1,11 @@
+#### 2.33.0: Release
+
+ - Bump actions/checkout from 7.0.0 to 7.0.1 (#300)
+ - Bump find-my-way from 9.3.0 to 9.7.0 (#303)
+ - Bump tar from 7.5.16 to 7.5.22 (#302)
+ - Bump fast-uri from 3.1.2 to 3.1.4 (#301)
+ - Bump actions/setup-node from 6.4.0 to 7.0.0 (#298)
+
 #### 2.32.1: Release
 
  - ci: Add slack notification to the release pipeline (#297)
