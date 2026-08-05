@@ -1,3 +1,8 @@
+#### 2.33.2: Release
+
+ - Bump fast-uri from 3.1.4 to 3.1.5 (#307)
+ - Bump ip-address from 10.2.0 to 10.4.0 (#306)
+
 #### 2.33.1: Release
 
 
