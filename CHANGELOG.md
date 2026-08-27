@@ -1,3 +1,6 @@
+#### 3.0.0: Release
+
+
 #### 2.33.2: Release
 
  - Bump fast-uri from 3.1.4 to 3.1.5 (#307)
