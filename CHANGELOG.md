@@ -1,3 +1,14 @@
+#### 3.1.0: Release
+
+ - Add override for uuid (#323)
+ - Bump serialize-javascript and mocha (#322)
+ - Bump benc-uk/workflow-dispatch from 1.3.2 to 1.3.3 (#321)
+ - Bump brace-expansion (#318)
+ - Bump @humanfs/node from 0.16.7 to 0.16.8 (#316)
+ - Bump js-yaml from 4.3.1 to 4.3.2 (#320)
+ - Bump fastify from 5.8.5 to 5.12.1 (#314)
+ - Bump fast-uri from 3.1.5 to 3.1.7 (#315)
+
 #### 3.0.2: Release
 
  - Bump jsonata and @node-red/util (#317)
