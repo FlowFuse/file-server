@@ -1,3 +1,12 @@
+#### 3.1.1: Release
+
+ - chore: Override moment (#330)
+ - Bump serialize-javascript from 7.1.1 to 7.1.2 (#328)
+ - Bump brace-expansion (#327)
+ - Bump fastify from 5.12.1 to 5.12.5 (#329)
+ - Bump fast-uri (#326)
+ - Bump ip-address from 10.4.0 to 10.7.2 (#325)
+
 #### 3.1.0: Release
 
  - Add override for uuid (#323)
