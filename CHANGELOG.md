@@ -1,3 +1,9 @@
+#### 3.2.0: Release
+
+ - Bump actions/create-github-app-token from 3.2.0 to 3.3.0 (#333)
+ - Bump actions/setup-node from 7.0.0 to 7.1.0 (#334)
+ - Bump fast-copy from 3.0.1 to 3.1.0 (#332)
+
 #### 3.1.1: Release
 
  - chore: Override moment (#330)
