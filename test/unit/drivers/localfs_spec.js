@@ -72,4 +72,22 @@ describe('localfs driver', function () {
         // verify action
         should(fs.existsSync(fileLocation)).be.true('File should exist after test')
     })
+    it('rejects a traversal in the file path', function () {
+        const driver = app._driver
+        should(() => driver.resolvePath(teamId, projectId, join('..', '..', 'etc', 'passwd'))).throw(/Invalid Path/)
+    })
+    it('rejects a teamId that is not id-safe', function () {
+        const driver = app._driver
+        should(() => driver.resolvePath('..', projectId, 'file.txt')).throw(/Invalid Path/)
+    })
+    it('rejects a projectId that is not id-safe', function () {
+        const driver = app._driver
+        should(() => driver.resolvePath(teamId, 'a/b', 'file.txt')).throw(/Invalid Path/)
+    })
+    it('confines a rooted path to the team root', function () {
+        const driver = app._driver
+        const resolved = driver.resolvePath(teamId, projectId, `${pathSeparator}etc${pathSeparator}passwd`)
+        should(resolved.startsWith(`${teamId}${pathSeparator}`)).be.true('must stay under the team root')
+        should(resolved.split(pathSeparator)).not.containEql('..')
+    })
 })

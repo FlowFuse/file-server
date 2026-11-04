@@ -1,7 +1,9 @@
 const fs = require('fs')
 const { join, isAbsolute, dirname, sep: pathSeparator, parse } = require('path')
 
-const canary = 'ROOT_DIR_CANARY'
+// Team and project ids are hashids / uuids; reject anything that is not
+// id-safe so it can never be used to build a path outside its own bucket.
+const idPattern = /^[A-Za-z0-9_-]+$/
 
 async function readDirSize (dir) {
     if (!fs.existsSync(dir)) {
@@ -50,30 +52,34 @@ module.exports = function (app) {
     app.log.info(`FlowFuse File Storage localfs root Directory: ${rootPath}`)
 
     function resolvePath (teamId, projectId, path) {
-        let resolvedPath
-        if (isAbsolute(path)) {
-            const pp = parse(path)
-            const hasWinDrive = /[a-z|A-Z]:/.test(pp.root)
-            if (hasWinDrive) {
-                path = path.replace(':', '')
-            }
-        }
-        const minPath = join(canary, teamId, projectId, path) // limit traversal to /teamid/projectId/**
-        if (path.startsWith(pathSeparator)) {
-            resolvedPath = join(canary, teamId, path)
-        } else {
-            resolvedPath = join(canary, teamId, projectId, path)
-        }
-        if (resolvedPath.startsWith(minPath)) {
-            const array = resolvedPath.split(pathSeparator)
-            array.shift()
-            resolvedPath = array.join(pathSeparator)
-            return resolvedPath
-        } else {
+        // Defence in depth: ids are also validated at the auth layer, but never
+        // build a path from an id that is not id-safe.
+        if (!idPattern.test(String(teamId)) || !idPattern.test(String(projectId))) {
             const err = new Error('Invalid Path')
             err.code = 'ENOTDIR'
             throw err
         }
+        let requested = String(path ?? '')
+        if (isAbsolute(requested)) {
+            const pp = parse(requested)
+            const hasWinDrive = /^[a-zA-Z]:/.test(pp.root)
+            if (hasWinDrive) {
+                requested = requested.replace(/^[a-zA-Z]:/, '')
+            }
+        }
+        // A rooted path stays scoped to the team root (previous behaviour);
+        // anything else to the team/project root.
+        const base = requested.startsWith(pathSeparator) ? join(teamId) : join(teamId, projectId)
+        const relative = requested.replace(/^[\\/]+/, '')
+        const resolvedPath = join(base, relative)
+        // join() collapses any '..' segments; confine the result to base so a
+        // traversal attempt cannot escape the team/project bucket.
+        if (resolvedPath !== base && !resolvedPath.startsWith(base + pathSeparator)) {
+            const err = new Error('Invalid Path')
+            err.code = 'ENOTDIR'
+            throw err
+        }
+        return resolvedPath
     }
 
     return {
