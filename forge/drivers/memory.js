@@ -1,27 +1,7 @@
-const { join, sep: pathSeparator } = require('path')
+const { join } = require('path')
+const { resolvePath } = require('./resolvePath')
 
-const canary = 'ROOT_DIR_CANARY'
 const storage = {}
-
-function resolvePath (teamId, projectId, path) {
-    let resolvedPath
-    const minPath = join(canary, teamId, projectId, path) // limit traversal to /teamid/projectId/**
-    if (path.startsWith(pathSeparator)) {
-        resolvedPath = join(canary, teamId, path)
-    } else {
-        resolvedPath = join(canary, teamId, projectId, path)
-    }
-    if (resolvedPath.startsWith(minPath)) {
-        const array = resolvedPath.split(pathSeparator)
-        array.shift()
-        resolvedPath = array.join(pathSeparator)
-        return resolvedPath
-    } else {
-        const err = new Error('Invalid Path')
-        err.code = 'ENOTDIR'
-        throw err
-    }
-}
 
 module.exports = function (app) {
     return {

@@ -84,16 +84,25 @@ describe('localfs driver', function () {
         const driver = app._driver
         should(() => driver.resolvePath(teamId, 'a/b', 'file.txt')).throw(/Invalid Path/)
     })
-    it('confines a rooted path to the team/project root', function () {
+    it('rejects a rooted path (leading separator)', function () {
         const driver = app._driver
-        const resolved = driver.resolvePath(teamId, projectId, `${pathSeparator}etc${pathSeparator}passwd`)
-        should(resolved.startsWith(`${teamId}${pathSeparator}${projectId}${pathSeparator}`)).be.true('must stay under the team/project root')
-        should(resolved.split(pathSeparator)).not.containEql('..')
+        // The wildcard route only ever yields a relative sub-path; a rooted path
+        // is not a valid client input and must be rejected, not remapped.
+        should(() => driver.resolvePath(teamId, projectId, `${pathSeparator}etc${pathSeparator}passwd`)).throw(/Invalid Path/)
     })
-    it('does not let a rooted path reach a sibling project', function () {
+    it('rejects a rooted path aimed at a sibling project', function () {
         const driver = app._driver
-        // A leading separator must not escape the token's own project into p2
-        const resolved = driver.resolvePath(teamId, projectId, `${pathSeparator}p2${pathSeparator}secret.txt`)
-        should(resolved.startsWith(`${teamId}${pathSeparator}${projectId}${pathSeparator}`)).be.true('must stay under the token project')
+        should(() => driver.resolvePath(teamId, projectId, `${pathSeparator}p2${pathSeparator}secret.txt`)).throw(/Invalid Path/)
+    })
+    it('rejects a Windows drive-letter path', function () {
+        const driver = app._driver
+        // Must not be silently mapped to <team>/<project>/c/... (which orphaned
+        // data and, on a Windows host, allowed the bucket to be escaped).
+        should(() => driver.resolvePath(teamId, projectId, 'c:\\test\\doc.txt')).throw(/Invalid Path/)
+    })
+    it('accepts an ordinary relative sub-path', function () {
+        const driver = app._driver
+        const resolved = driver.resolvePath(teamId, projectId, join('sub', 'file.txt'))
+        should(resolved).eql(join(teamId, projectId, 'sub', 'file.txt'))
     })
 })
