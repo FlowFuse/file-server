@@ -94,11 +94,14 @@ describe('localfs driver', function () {
         const driver = app._driver
         should(() => driver.resolvePath(teamId, projectId, `${pathSeparator}p2${pathSeparator}secret.txt`)).throw(/Invalid Path/)
     })
-    it('rejects a Windows drive-letter path', function () {
+    it('accepts a filename containing a colon on this (posix) host', function () {
+        if (pathSeparator !== '/') { this.skip() }
         const driver = app._driver
-        // Must not be silently mapped to <team>/<project>/c/... (which orphaned
-        // data and, on a Windows host, allowed the bucket to be escaped).
-        should(() => driver.resolvePath(teamId, projectId, 'c:\\test\\doc.txt')).throw(/Invalid Path/)
+        // A colon is an ordinary filename character on posix, so it must not be
+        // mistaken for a Windows drive letter and rejected. The drive-letter
+        // rule is host-gated and covered for win32 in resolvePath_spec.
+        const resolved = driver.resolvePath(teamId, projectId, 'a:b.txt')
+        should(resolved).eql(join(teamId, projectId, 'a:b.txt'))
     })
     it('accepts an ordinary relative sub-path', function () {
         const driver = app._driver
