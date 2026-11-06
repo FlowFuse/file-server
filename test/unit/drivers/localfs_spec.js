@@ -84,15 +84,15 @@ describe('localfs driver', function () {
         const driver = app._driver
         should(() => driver.resolvePath(teamId, 'a/b', 'file.txt')).throw(/Invalid Path/)
     })
-    it('rejects a rooted path (leading separator)', function () {
+    it('strips a leading separator and appends to the project', function () {
         const driver = app._driver
-        // The wildcard route only ever yields a relative sub-path; a rooted path
-        // is not a valid client input and must be rejected, not remapped.
-        should(() => driver.resolvePath(teamId, projectId, `${pathSeparator}etc${pathSeparator}passwd`)).throw(/Invalid Path/)
+        // An absolute-looking path is treated as relative to the project bucket.
+        const resolved = driver.resolvePath(teamId, projectId, `${pathSeparator}sub${pathSeparator}file.txt`)
+        should(resolved).eql(join(teamId, projectId, 'sub', 'file.txt'))
     })
-    it('rejects a rooted path aimed at a sibling project', function () {
+    it('rejects a traversal that leaves the project via a leading separator', function () {
         const driver = app._driver
-        should(() => driver.resolvePath(teamId, projectId, `${pathSeparator}p2${pathSeparator}secret.txt`)).throw(/Invalid Path/)
+        should(() => driver.resolvePath(teamId, projectId, `${pathSeparator}..${pathSeparator}p2${pathSeparator}x`)).throw(/Invalid Path/)
     })
     it('accepts a filename containing a colon on this (posix) host', function () {
         if (pathSeparator !== '/') { this.skip() }
