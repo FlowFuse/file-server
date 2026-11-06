@@ -84,10 +84,16 @@ describe('localfs driver', function () {
         const driver = app._driver
         should(() => driver.resolvePath(teamId, 'a/b', 'file.txt')).throw(/Invalid Path/)
     })
-    it('confines a rooted path to the team root', function () {
+    it('confines a rooted path to the team/project root', function () {
         const driver = app._driver
         const resolved = driver.resolvePath(teamId, projectId, `${pathSeparator}etc${pathSeparator}passwd`)
-        should(resolved.startsWith(`${teamId}${pathSeparator}`)).be.true('must stay under the team root')
+        should(resolved.startsWith(`${teamId}${pathSeparator}${projectId}${pathSeparator}`)).be.true('must stay under the team/project root')
         should(resolved.split(pathSeparator)).not.containEql('..')
+    })
+    it('does not let a rooted path reach a sibling project', function () {
+        const driver = app._driver
+        // A leading separator must not escape the token's own project into p2
+        const resolved = driver.resolvePath(teamId, projectId, `${pathSeparator}p2${pathSeparator}secret.txt`)
+        should(resolved.startsWith(`${teamId}${pathSeparator}${projectId}${pathSeparator}`)).be.true('must stay under the token project')
     })
 })

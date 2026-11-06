@@ -67,9 +67,10 @@ module.exports = function (app) {
                 requested = requested.replace(/^[a-zA-Z]:/, '')
             }
         }
-        // A rooted path stays scoped to the team root (previous behaviour);
-        // anything else to the team/project root.
-        const base = requested.startsWith(pathSeparator) ? join(teamId) : join(teamId, projectId)
+        // Confine every path to the token's own team/project bucket. A rooted
+        // path (leading separator) or a Windows drive is reduced to a relative
+        // path below, so it can never reach a sibling project or the team root.
+        const base = join(teamId, projectId)
         const relative = requested.replace(/^[\\/]+/, '')
         const resolvedPath = join(base, relative)
         // join() collapses any '..' segments; confine the result to base so a
