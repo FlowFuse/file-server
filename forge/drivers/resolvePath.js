@@ -24,9 +24,12 @@ function resolvePathWith (pathImpl, teamId, projectId, path) {
     const requested = String(path ?? '').replace(/^[\\/]+/, '')
     const base = join(teamId, projectId)
     const resolvedPath = join(base, requested)
-    // join() collapses any '..' segments; confine the result to the project
-    // bucket so a traversal attempt cannot escape it.
-    if (resolvedPath !== base && !resolvedPath.startsWith(base + sep)) {
+    // join() collapses any '..' segments. Require the result to be a file
+    // strictly inside the project bucket: reject the bucket root itself (an
+    // empty or '.'-only path is not a file) and anything that escapes the
+    // bucket. A trailing separator is ignored so './' is treated as the root.
+    const normalized = resolvedPath.endsWith(sep) ? resolvedPath.slice(0, -1) : resolvedPath
+    if (normalized === base || !normalized.startsWith(base + sep)) {
         throw invalidPath()
     }
     return resolvedPath

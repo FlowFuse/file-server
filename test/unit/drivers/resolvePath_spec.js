@@ -10,8 +10,10 @@ describe('shared resolvePath', function () {
         it('maps a relative sub-path into the project bucket', function () {
             should(resolvePath(teamId, projectId, 'sub/file.txt')).startWith(require('path').join(teamId, projectId))
         })
-        it('maps an empty path to the project root', function () {
-            should(resolvePath(teamId, projectId, '')).eql(require('path').join(teamId, projectId))
+        it('rejects a path that resolves to the bucket root (not a file)', function () {
+            should(() => resolvePath(teamId, projectId, '')).throw(/Invalid Path/)
+            should(() => resolvePath(teamId, projectId, '.')).throw(/Invalid Path/)
+            should(() => resolvePath(teamId, projectId, 'a/..')).throw(/Invalid Path/)
         })
         it('rejects a traversal out of the project', function () {
             should(() => resolvePath(teamId, projectId, '../../etc/passwd')).throw(/Invalid Path/)
