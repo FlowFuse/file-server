@@ -1,7 +1,6 @@
 const fs = require('fs')
-const { join, isAbsolute, dirname, sep: pathSeparator, parse } = require('path')
-
-const canary = 'ROOT_DIR_CANARY'
+const { join, isAbsolute, dirname } = require('path')
+const { resolvePath } = require('./resolvePath')
 
 async function readDirSize (dir) {
     if (!fs.existsSync(dir)) {
@@ -48,33 +47,6 @@ module.exports = function (app) {
     }
 
     app.log.info(`FlowFuse File Storage localfs root Directory: ${rootPath}`)
-
-    function resolvePath (teamId, projectId, path) {
-        let resolvedPath
-        if (isAbsolute(path)) {
-            const pp = parse(path)
-            const hasWinDrive = /[a-z|A-Z]:/.test(pp.root)
-            if (hasWinDrive) {
-                path = path.replace(':', '')
-            }
-        }
-        const minPath = join(canary, teamId, projectId, path) // limit traversal to /teamid/projectId/**
-        if (path.startsWith(pathSeparator)) {
-            resolvedPath = join(canary, teamId, path)
-        } else {
-            resolvedPath = join(canary, teamId, projectId, path)
-        }
-        if (resolvedPath.startsWith(minPath)) {
-            const array = resolvedPath.split(pathSeparator)
-            array.shift()
-            resolvedPath = array.join(pathSeparator)
-            return resolvedPath
-        } else {
-            const err = new Error('Invalid Path')
-            err.code = 'ENOTDIR'
-            throw err
-        }
-    }
 
     return {
         get rootPath () {

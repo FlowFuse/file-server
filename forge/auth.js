@@ -4,6 +4,10 @@ const got = require('got')
 const authCache = {}
 const ttl = 90 * 1000
 
+// Team and project ids are hashids / uuids. Anything outside this set (a path
+// separator, a dot) is never a valid id and is rejected before use in a path.
+const idPattern = /^[A-Za-z0-9_-]+$/
+
 module.exports = fp(async function (app, opts) {
     const client = got.extend({
         prefixUrl: `${app.config.base_url}/account/check/project`,
@@ -31,17 +35,32 @@ module.exports = fp(async function (app, opts) {
         }
         try {
             const token = getAuthToken(request)
-            const cacheOk = checkCache(token, request.params.projectId)
+            const { teamId, projectId } = request.params
+            // Only accept id-safe path segments. This rejects separators and
+            // '..' before they can be used to build a storage path.
+            if (projectId !== undefined && !idPattern.test(projectId)) {
+                throw new Error('Invalid projectId')
+            }
+            if (teamId !== undefined && !idPattern.test(teamId)) {
+                throw new Error('Invalid teamId')
+            }
+            const cacheOk = checkCache(token, projectId, teamId)
             if (!cacheOk) {
-                const tokenResponse = await checkToken(request.params.projectId, token)
+                const tokenResponse = await checkToken(projectId, token)
                 if (!tokenResponse) {
                     throw new Error('Invalid token')
+                }
+                // A token authorises exactly one project. When the route also
+                // carries a teamId, it must be that project's team.
+                if (teamId !== undefined && tokenResponse.team && tokenResponse.team !== teamId) {
+                    throw new Error('Team mismatch')
                 }
                 request.quota = tokenResponse.quota
                 // update cache
                 authCache[token] = {
                     ttl: Date.now(),
-                    projectId: request.params.projectId,
+                    projectId,
+                    teamId: tokenResponse.team,
                     quota: tokenResponse.quota
                 }
             } else {
@@ -82,18 +101,21 @@ module.exports = fp(async function (app, opts) {
      * @param {string} projectId The projectId to check
      * @returns {boolean} true if the token is valid for the projectId
      */
-    function checkCache (token, projectId) {
+    function checkCache (token, projectId, teamId) {
         const cacheExists = authCache[token] && authCache[token].projectId && authCache[token].ttl
         let projectMatch = false
+        let teamMatch = false
         let ttlOk = false
         if (cacheExists) {
             const cacheEntry = authCache[token]
             // ensure projectId matches the cached projectId
             projectMatch = cacheEntry.projectId === projectId
+            // ensure the teamId (when the route carries one) matches the cached team
+            teamMatch = teamId === undefined || cacheEntry.teamId === teamId
             // check cache ttl
             ttlOk = (Date.now() - cacheEntry.ttl) < ttl
         }
-        const result = cacheExists && projectMatch && ttlOk
+        const result = cacheExists && projectMatch && teamMatch && ttlOk
         // delete only if expired
         if (!ttlOk && projectMatch) {
             delete authCache[token]
