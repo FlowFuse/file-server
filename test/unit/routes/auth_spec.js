@@ -194,3 +194,62 @@ describe('@flowforge file-server', function () {
         should(response2.statusCode).eql(401)
     })
 })
+
+describe('@flowforge file-server team binding', function () {
+    let app, authServer
+    before(async function () {
+        app = await setup.setupApp({
+            port: 4005,
+            base_url: 'http://localhost:4006',
+            contextDriverOptions: { type: 'sqlite', storage: 'ff-context-tb.db' }
+        })
+        authServer = setup.authServer({
+            port: 4006,
+            authConfig: [
+                { token: 'tb-token', projectId: 'tb-project', team: 'tb-team' }
+            ]
+        })
+    })
+
+    after(async function () {
+        await new Promise((resolve, reject) => {
+            if (!authServer) {
+                resolve()
+                return
+            }
+            authServer.close(err => (err ? reject(err) : resolve()))
+        })
+        authServer = null
+        if (app) {
+            await app.close()
+            app = null
+        }
+    })
+
+    it('Allows a file request whose teamId is the token team', async function () {
+        const response = await app.inject({
+            method: 'GET',
+            url: '/v1/files/tb-team/tb-project/missing.txt',
+            headers: { authorization: 'Bearer tb-token' }
+        })
+        should(response.statusCode).not.eql(401)
+    })
+
+    it('Rejects a file request for another team with the same token', async function () {
+        const response = await app.inject({
+            method: 'GET',
+            url: '/v1/files/other-team/tb-project/missing.txt',
+            headers: { authorization: 'Bearer tb-token' }
+        })
+        should(response.statusCode).eql(401)
+    })
+
+    it('Rejects a teamId that is not id-safe', async function () {
+        const response = await app.inject({
+            method: 'GET',
+            url: '/v1/files/a.b/tb-project/missing.txt',
+            headers: { authorization: 'Bearer tb-token' }
+        })
+        should(response.statusCode).eql(401)
+    })
+})

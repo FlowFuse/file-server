@@ -72,4 +72,40 @@ describe('localfs driver', function () {
         // verify action
         should(fs.existsSync(fileLocation)).be.true('File should exist after test')
     })
+    it('rejects a traversal in the file path', function () {
+        const driver = app._driver
+        should(() => driver.resolvePath(teamId, projectId, join('..', '..', 'etc', 'passwd'))).throw(/Invalid Path/)
+    })
+    it('rejects a teamId that is not id-safe', function () {
+        const driver = app._driver
+        should(() => driver.resolvePath('..', projectId, 'file.txt')).throw(/Invalid Path/)
+    })
+    it('rejects a projectId that is not id-safe', function () {
+        const driver = app._driver
+        should(() => driver.resolvePath(teamId, 'a/b', 'file.txt')).throw(/Invalid Path/)
+    })
+    it('strips a leading separator and appends to the project', function () {
+        const driver = app._driver
+        // An absolute-looking path is treated as relative to the project bucket.
+        const resolved = driver.resolvePath(teamId, projectId, `${pathSeparator}sub${pathSeparator}file.txt`)
+        should(resolved).eql(join(teamId, projectId, 'sub', 'file.txt'))
+    })
+    it('rejects a traversal that leaves the project via a leading separator', function () {
+        const driver = app._driver
+        should(() => driver.resolvePath(teamId, projectId, `${pathSeparator}..${pathSeparator}p2${pathSeparator}x`)).throw(/Invalid Path/)
+    })
+    it('accepts a filename containing a colon on this (posix) host', function () {
+        if (pathSeparator !== '/') { this.skip() }
+        const driver = app._driver
+        // A colon is an ordinary filename character on posix, so it must not be
+        // mistaken for a Windows drive letter and rejected. The drive-letter
+        // rule is host-gated and covered for win32 in resolvePath_spec.
+        const resolved = driver.resolvePath(teamId, projectId, 'a:b.txt')
+        should(resolved).eql(join(teamId, projectId, 'a:b.txt'))
+    })
+    it('accepts an ordinary relative sub-path', function () {
+        const driver = app._driver
+        const resolved = driver.resolvePath(teamId, projectId, join('sub', 'file.txt'))
+        should(resolved).eql(join(teamId, projectId, 'sub', 'file.txt'))
+    })
 })

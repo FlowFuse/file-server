@@ -20,9 +20,13 @@ function authServer (config = {}) {
             switch (route) {
                 case '/account/check/project':
                     authToken = authConfig.find(auth => auth.projectId === projectId)
-                    if (req.headers.authorization === ('Bearer ' + authToken.token)) {
+                    if (authToken && req.headers.authorization === ('Bearer ' + authToken.token)) {
                         res.writeHead(200)
-                        res.end('{ "quota": { "file": 1000, "context": 1000 } }')
+                        const body = { quota: { file: 1000, context: 1000 } }
+                        if (authToken.team) {
+                            body.team = authToken.team
+                        }
+                        res.end(JSON.stringify(body))
                         return
                     }
                     throw new Error('Unknown request')
