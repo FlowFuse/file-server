@@ -1,3 +1,18 @@
+#### 3.3.0: Release
+
+ - Bump @aws-sdk/client-s3 from 3.1161.0 to 3.1170.0 (#363)
+ - Confine storage paths and bind file requests to the token team (#360)
+ - Bump @aws-sdk/client-s3 from 3.1158.0 to 3.1161.0 (#358)
+ - Bump pg from 8.11.2 to 8.23.1 (#343)
+ - Bump semver from 7.7.3 to 7.8.5 (#349)
+ - Bump serialize-javascript from 7.1.2 to 7.1.4 (#356)
+ - Bump fast-uri (#355)
+ - Bump ip-address from 10.7.2 to 10.7.5 (#354)
+ - Bump @aws-sdk/client-s3 from 3.993.0 to 3.1158.0 (#350)
+ - Bump yaml from 2.8.3 to 2.9.1 (#347)
+ - Group dev dependabot updates (#337)
+ - Bump fastify from 5.12.5 to 5.12.7 (#338)
+
 #### 3.2.0: Release
 
  - Bump actions/create-github-app-token from 3.2.0 to 3.3.0 (#333)
