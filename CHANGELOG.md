@@ -1,3 +1,9 @@
+#### 3.3.2: Release
+
+ - Bump @aws-sdk/client-s3 from 3.1170.0 to 3.1176.0 (#368)
+ - Bump i18next and @node-red/util (#366)
+ - Bump actions/create-github-app-token from 3.3.0 to 3.4.0 (#367)
+
 #### 3.3.1: Release
 
 
